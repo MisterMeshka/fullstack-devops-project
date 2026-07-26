@@ -4,7 +4,9 @@ import os
 
 DATABASE_URL = (
     f"postgresql://{os.getenv('POSTGRES_USER')}:"
-    f"{os.getenv('POSTGRES_PASSWORD')}@postgres:5432/"
+    f"{os.getenv('POSTGRES_PASSWORD')}@"
+    f"{os.getenv('DB_HOST')}:"
+    f"{os.getenv('DB_PORT')}/"
     f"{os.getenv('POSTGRES_DB')}"
 )
 
@@ -17,3 +19,11 @@ SessionLocal = sessionmaker(
 )
 
 Base = declarative_base()
+
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()

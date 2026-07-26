@@ -1,18 +1,13 @@
-from fastapi import FastAPI
-from sqlalchemy import create_engine, text
-import os
+from .routers import users
+from fastapi import Depends, FastAPI, HTTPException
+from fastapi import Depends, FastAPI
+from sqlalchemy import text
+from sqlalchemy.orm import Session
+
+from . import crud, models, schemas
+from .database import Base, engine, get_db
 
 app = FastAPI()
-
-DATABASE_URL = (
-    f"postgresql://{os.getenv('POSTGRES_USER')}:"
-    f"{os.getenv('POSTGRES_PASSWORD')}@"
-    f"{os.getenv('DB_HOST')}:"
-    f"{os.getenv('DB_PORT')}/"
-    f"{os.getenv('POSTGRES_DB')}"
-)
-
-engine = create_engine(DATABASE_URL)
 
 
 @app.get("/")
@@ -30,3 +25,9 @@ def db():
     with engine.connect() as conn:
         result = conn.execute(text("SELECT version();"))
         return {"postgres": result.scalar()}
+
+app = FastAPI()
+
+Base.metadata.create_all(bind=engine)
+
+app.include_router(users.router)
