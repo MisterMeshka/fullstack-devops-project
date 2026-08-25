@@ -1,0 +1,1 @@
+A small FastAPI service with PostgreSQL, Docker Compose and Alembic migrations.
