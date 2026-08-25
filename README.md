@@ -1,11 +1,12 @@
-#Fullstack DevOps Project
+# Fullstack DevOps Project
 
 A containerized full-stack application built with **FastAPI, PostgreSQL, Docker Compose, Nginx, SQLAlchemy and Alembic**.
 
 The project was created as a practical DevOps learning project to practice containerization, database management, service networking, health checks and application deployment.
 
-#Architecture
+## Architecture
 
+```text
                     ┌──────────────┐
                     │    Client    │
                     └──────┬───────┘
@@ -27,12 +28,13 @@ The project was created as a practical DevOps learning project to practice conta
                     │  PostgreSQL  │
                     │   Database   │
                     └──────────────┘
+```
 
 All services run in Docker containers and communicate through a dedicated Docker network.
 
-#Technologies
+## Technologies
 
-#Backend
+### Backend
 
 * Python 3.12
 * FastAPI
@@ -41,7 +43,7 @@ All services run in Docker containers and communicate through a dedicated Docker
 * Alembic
 * PostgreSQL
 
-#DevOps / Infrastructure
+### DevOps / Infrastructure
 
 * Docker
 * Docker Compose
@@ -52,8 +54,9 @@ All services run in Docker containers and communicate through a dedicated Docker
 * Docker volumes
 * Container health checks
 
-#Project Structure
+## Project Structure
 
+```text
 fullstack-devops-project/
 │
 ├── backend/
@@ -75,12 +78,13 @@ fullstack-devops-project/
 ├── docker-compose.yml
 ├── .gitignore
 └── README.md
+```
 
-#Docker Architecture
+## Docker Architecture
 
 The application consists of three main services:
 
-#Backend
+### Backend
 
 The FastAPI application runs inside its own Docker container.
 
@@ -92,161 +96,168 @@ The container:
 * provides a `/health` endpoint
 * uses a non-root user inside the container
 
-#PostgreSQL
+### PostgreSQL
 
 PostgreSQL runs as a separate container.
 
 Database data is stored in a Docker named volume:
 
+```text
 postgres-data
+```
 
 This allows database data to persist when the PostgreSQL container is recreated.
 
-#Nginx
+### Nginx
 
 Nginx works as a reverse proxy in front of the backend application.
 
 The service exposes port `80` and forwards requests to the FastAPI backend.
 
-#Docker Compose
+## Docker Compose
 
 The complete application can be started with Docker Compose:
 
-bash
+```bash
 docker compose up -d --build
+```
 
 Check running containers:
 
-bash
+```bash
 docker compose ps
+```
 
 View logs:
 
-bash
+```bash
 docker compose logs -f
-
+```
 
 Stop the application:
 
-bash
+```bash
 docker compose down
+```
 
-
-#Environment Variables
+## Environment Variables
 
 The project uses environment variables for database configuration.
 
 Create a `.env` file in the project root:
 
-env
+```env
 POSTGRES_DB=devops_db
 POSTGRES_USER=devops
 POSTGRES_PASSWORD=your_password
 
 DB_HOST=postgres
 DB_PORT=5432
+```
 
 Do not commit the real `.env` file or production credentials to GitHub.
 
 Use `.env.example` to document required environment variables.
 
-#Database Migrations
+## Database Migrations
 
 The project uses **Alembic** for database migrations.
 
 Create a migration:
 
+```bash
 docker compose exec backend alembic revision --autogenerate -m "migration message"
-
+```
 
 Apply migrations:
 
-bash
+```bash
 docker compose exec backend alembic upgrade head
-
+```
 
 Check the current migration:
 
-bash
+```bash
 docker compose exec backend alembic current
+```
 
-
-# Health Check
+## Health Check
 
 The backend provides a health endpoint:
 
-text
+```text
 GET /health
-
+```
 
 Docker Compose uses this endpoint to check whether the backend service is responding.
 
 You can test it with:
 
-bash
+```bash
 curl http://localhost/health
+```
 
-
-#API
+## API
 
 The FastAPI application provides REST API endpoints for working with users.
 
 Swagger API documentation is available at:
 
-text
+```text
 http://localhost/docs
-
+```
 
 ReDoc:
 
-text
+```text
 http://localhost/redoc
+```
 
-
-#Useful Commands
+## Useful Commands
 
 Start containers:
 
-bash
+```bash
 docker compose up -d
-
+```
 
 Rebuild containers:
 
-bash
+```bash
 docker compose up -d --build
+```
 
 Show containers:
 
-bash
+```bash
 docker compose ps
-
+```
 
 Show logs:
 
-bash
+```bash
 docker compose logs -f backend
-
+```
 
 Open a shell inside the backend container:
 
-bash
+```bash
 docker compose exec backend bash
-
+```
 
 Restart the application:
 
-bash
+```bash
 docker compose restart
-
+```
 
 Stop containers:
 
-bash
+```bash
 docker compose down
+```
 
-
-#What I Practiced
+## What I Practiced
 
 This project helped me gain practical experience with:
 
@@ -266,7 +277,7 @@ This project helped me gain practical experience with:
 * Container health checks
 * Debugging container and database connectivity issues
 
-#Future Improvements
+## Future Improvements
 
 Planned improvements:
 
@@ -279,7 +290,7 @@ Planned improvements:
 * [ ] AWS deployment
 * [ ] Infrastructure as Code
 
-#Author
+## Author
 
 **MisterMeshka**
 
