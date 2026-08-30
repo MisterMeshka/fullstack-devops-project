@@ -11,18 +11,28 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v3
 
       - name: Create deployment package
         run: zip -r deploy.zip . -x "*.git*"
 
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Test AWS connection
+        run: aws sts get-caller-identity
+
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v22
         with:
-          aws_access_key: ${{ secrets.MY_AWS_ACCESS_KEY }}
-          aws_secret_key: ${{ secrets.MY_AWS_SECRET_KEY }}
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: fullstack-devops-project
-          environment_name: fullstack-devops-project-env
-          region: us-east-1
+          environment_name: Fullstack-devops-project-env
           version_label: ${{ github.sha }}
+          region: us-east-1
           deployment_package: deploy.zip
