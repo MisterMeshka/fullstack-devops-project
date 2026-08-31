@@ -147,12 +147,12 @@ The project uses environment variables for database configuration.
 Create a `.env` file in the project root:
 
 ```env
-POSTGRES_DB=devops_db
-POSTGRES_USER=devops
+POSTGRES_DB=your_db
+POSTGRES_USER=your_user
 POSTGRES_PASSWORD=your_password
 
-DB_HOST=postgres
-DB_PORT=5432
+DB_HOST=your_host
+DB_PORT=your_port
 ```
 
 Do not commit the real `.env` file or production credentials to GitHub.
