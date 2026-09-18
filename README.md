@@ -276,6 +276,8 @@ This project helped me gain practical experience with:
 * Environment variables
 * Container health checks
 * Debugging container and database connectivity issues
+* GitHub Actions CI/CD
+* Depoyment to AWS
 
 ## Future Improvements
 
