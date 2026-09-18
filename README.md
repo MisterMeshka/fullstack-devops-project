@@ -281,13 +281,10 @@ This project helped me gain practical experience with:
 
 Planned improvements:
 
-* [ ] GitHub Actions CI/CD
 * [ ] Automated Docker image builds
 * [ ] Docker Hub integration
-* [ ] Deployment to a VPS
 * [ ] HTTPS with Let's Encrypt
 * [ ] Application monitoring
-* [ ] AWS deployment
 * [ ] Infrastructure as Code
 
 ## Author
